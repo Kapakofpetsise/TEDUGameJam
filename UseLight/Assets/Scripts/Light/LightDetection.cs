@@ -8,18 +8,20 @@ public class LightDetection : MonoBehaviour
 
     public Transform greenLightTransform;  
     public UnityEvent inGreenLight;  
-
     public UnityEvent inYellowLight;  // green and red light
-
-
     public UnityEvent notInLight;  
     
     public CircleCollider2D targetCollider;  // The target object with a CircleCollider2D
+    
+    public LayerMask ignoreLayer;
+
     public int numberOfRays = 8;  // Number of rays to cast around the circle's perimeter
 
     bool isInRedLight = false;
     bool isInGreenLight = false;
 
+
+    
     void Update()
     {
         isInGreenLight = IsInLight(greenLightTransform);
@@ -65,7 +67,7 @@ public class LightDetection : MonoBehaviour
         Vector2 direction = (targetPoint - startPoint).normalized;
 
         // Cast the ray
-        RaycastHit2D hit = Physics2D.Raycast(startPoint, direction);
+        RaycastHit2D hit = Physics2D.Raycast(startPoint, direction, Mathf.Infinity, ~ignoreLayer);
 
         // Debugging: Draw the ray path in the Scene view
         Debug.DrawLine(startPoint, targetPoint, Color.red);
