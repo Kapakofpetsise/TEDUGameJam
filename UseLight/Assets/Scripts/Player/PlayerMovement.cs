@@ -20,7 +20,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update() {
         _movement.Set(InputManager.Movement.x, InputManager.Movement.y);
-        _rb.linearVelocity = _movement * _moveSpeed;
+        if (_movement != Vector2.zero) {
+            _rb.linearVelocity = _movement * _moveSpeed;
+        } else {
+            _rb.linearVelocity = Vector2.zero;
+        }
+
 
         Vector2 lookDirection = InputManager.LookDirection - (Vector2)transform.position;
         float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
