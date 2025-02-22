@@ -1,37 +1,39 @@
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
-{
+public class PlayerMovement : MonoBehaviour {
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private float _rotationSpeed = 10f;
-    [SerializeField] private Transform grabPoint; 
-    [SerializeField] private float grabRange = 1f; 
-    [SerializeField] private LayerMask grabLayer; 
-    
+    [SerializeField] private Transform grabPoint;
+    [SerializeField] private float grabRange = 1f;
+    [SerializeField] private LayerMask grabLayer;
+
 
     private Vector2 _movement;
     private Rigidbody2D _rb;
     private Rigidbody2D grabbedObject;
     private Collider2D detectedObject;
+    private bool isActive = false;
 
     private void Awake() {
         _rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update() {
+        if (!isActive) return; // Prevents inactive characters from rotating or moving
+
         _movement.Set(InputManager.Movement.x, InputManager.Movement.y);
         if (_movement != Vector2.zero) {
             _rb.linearVelocity = _movement * _moveSpeed;
-        } else {
+        }
+        else {
             _rb.linearVelocity = Vector2.zero;
         }
 
-
+        // Only rotate if the character is active
         Vector2 lookDirection = InputManager.LookDirection - (Vector2)transform.position;
         float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
-         _rb.rotation = Mathf.LerpAngle(_rb.rotation, angle, _rotationSpeed * Time.deltaTime);
+        _rb.rotation = Mathf.LerpAngle(_rb.rotation, angle, _rotationSpeed * Time.deltaTime);
 
-        // Handle grabbing logic
         if (Input.GetKeyDown(KeyCode.E)) {
             if (grabbedObject == null) {
                 TryGrabObject();
@@ -45,7 +47,6 @@ public class PlayerMovement : MonoBehaviour
         if (grabbedObject != null) {
             grabbedObject.MovePosition(grabPoint.position);
         }
-
     }
 
     private void TryGrabObject() {
@@ -53,8 +54,8 @@ public class PlayerMovement : MonoBehaviour
             grabbedObject = detectedObject.attachedRigidbody;
 
             if (grabbedObject != null) {
-                grabbedObject.isKinematic = true; // Prevent physics interactions
-                grabbedObject.transform.parent = grabPoint; // Attach to player
+                grabbedObject.isKinematic = true; 
+                grabbedObject.transform.parent = grabPoint; 
             }
         }
     }
@@ -81,4 +82,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void SetActiveState(bool state) {
+        isActive = state;
+        _rb.linearVelocity = Vector2.zero; // Stop movement when switching away
+
+        if (!isActive) {
+            _rb.angularVelocity = 0; // Stop rotation when inactive
+        }
+    }
 }
