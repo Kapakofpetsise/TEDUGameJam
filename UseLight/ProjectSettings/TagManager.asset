@@ -10,6 +10,7 @@ TagManager:
   - BLACK
   - BLUE
   - YELLOW
+  - WALL
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Water
   - UI
   - Grabbable
-  - 
+  - GrabArea
   - 
   - 
   - 
@@ -44,11 +45,23 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Ground
+    uniqueID: 4263238997
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
   - name: Enemies
     uniqueID: 955323851
+    locked: 0
+  - name: Walls
+    uniqueID: 3917557853
+    locked: 0
+  - name: Objects
+    uniqueID: 1232189193
+    locked: 0
+  - name: Players
+    uniqueID: 711884363
     locked: 0
   m_RenderingLayers:
   - Default

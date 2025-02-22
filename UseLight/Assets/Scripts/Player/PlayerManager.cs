@@ -4,10 +4,8 @@ using System.Collections.Generic;
 public class PlayerManager : MonoBehaviour {
     [SerializeField] private List<PlayerMovement> players; // List of all playable characters
     private int currentPlayerIndex = 0; // Index of the active player
-    private Camera mainCamera;
 
     private void Start() {
-        mainCamera = Camera.main; // Get the main camera
         ActivatePlayer(currentPlayerIndex);
     }
 
@@ -20,7 +18,6 @@ public class PlayerManager : MonoBehaviour {
         if (players.Count > 0) {
             Vector3 targetPosition = players[currentPlayerIndex].transform.position;
             targetPosition.z = -10; // Keep the camera at a fixed depth
-            mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, targetPosition, Time.deltaTime * 5f);
         }
     }
 
