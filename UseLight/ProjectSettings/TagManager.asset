@@ -11,6 +11,7 @@ TagManager:
   - BLUE
   - YELLOW
   - WALL
+  - GREEN
   layers:
   - Default
   - TransparentFX

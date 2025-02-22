@@ -12,10 +12,12 @@ public class PlayerMovement : MonoBehaviour {
     private Rigidbody2D _rb;
     private Rigidbody2D grabbedObject;
     private Collider2D detectedObject;
+    private Collider2D playerCollider;
     private bool isActive = false;
 
     private void Awake() {
         _rb = GetComponent<Rigidbody2D>();
+        playerCollider = GetComponent<Collider2D>();
     }
 
     private void Update() {
@@ -51,19 +53,30 @@ public class PlayerMovement : MonoBehaviour {
 
     private void TryGrabObject() {
         if (detectedObject != null) {
-            grabbedObject = detectedObject.attachedRigidbody;
-
+            grabbedObject = detectedObject.gameObject.GetComponent<Rigidbody2D>();
             if (grabbedObject != null) {
-                grabbedObject.isKinematic = true; 
-                grabbedObject.transform.parent = grabPoint; 
+                grabbedObject.transform.SetParent(grabPoint);
+                grabbedObject.transform.localPosition = Vector3.zero;
+
+                // Disable collision between player and grabbed object
+                Collider2D grabbedCollider = grabbedObject.GetComponent<Collider2D>();
+                if (grabbedCollider != null) {
+                    Physics2D.IgnoreCollision(playerCollider, grabbedCollider, true);
+                }
             }
         }
     }
 
     private void DropObject() {
         if (grabbedObject != null) {
-            grabbedObject.isKinematic = false;
-            grabbedObject.transform.parent = null;
+            grabbedObject.transform.SetParent(null);
+
+            // Enable collision between player and grabbed object
+            Collider2D grabbedCollider = grabbedObject.GetComponent<Collider2D>();
+            if (grabbedCollider != null) {
+                Physics2D.IgnoreCollision(playerCollider, grabbedCollider, false);
+            }
+
             grabbedObject = null;
         }
     }

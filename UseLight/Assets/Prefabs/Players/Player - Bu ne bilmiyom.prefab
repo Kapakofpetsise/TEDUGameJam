@@ -138,8 +138,8 @@ GameObject:
   - component: {fileID: 2128106595650875858}
   - component: {fileID: 8810296121465825775}
   m_Layer: 0
-  m_Name: Player
-  m_TagString: RED
+  m_Name: Player - Bu ne bilmiyom
+  m_TagString: BLACK
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -501,4 +501,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   targetCollider: {fileID: 8810296121465825775}
+  ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 0
   numberOfRays: 8
