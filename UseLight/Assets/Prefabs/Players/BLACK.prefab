@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2154399131823396064}
   - component: {fileID: 5536086860369742268}
   - component: {fileID: 3776460510054049258}
+  - component: {fileID: 1661313643519321167}
   m_Layer: 0
   m_Name: BLACK
   m_TagString: BLACK
@@ -135,6 +136,27 @@ MonoBehaviour:
   fadeDuration: 0.5
   fadeSpeed: 10
   spriteRenderer: {fileID: 2984187221853885041}
+--- !u!114 &1661313643519321167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990756827612589349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8af444a2acf4ec54eb79db438026799a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notInLight:
+    m_PersistentCalls:
+      m_Calls: []
+  targetCollider: {fileID: 5536086860369742268}
+  ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  numberOfRays: 8
+  lightPairs: []
 --- !u!1 &2862966072840365851
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,7 +254,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3010115237605111356}
   - component: {fileID: 2984187221853885041}
-  - component: {fileID: 4367908781588786396}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -310,73 +331,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4367908781588786396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5515608330778185763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8af444a2acf4ec54eb79db438026799a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  redLightTransform: {fileID: 0}
-  inRedLight:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3776460510054049258}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: InLight
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  greenLightTransform: {fileID: 0}
-  inGreenLight:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3776460510054049258}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: InLight
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  inYellowLight:
-    m_PersistentCalls:
-      m_Calls: []
-  notInLight:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3776460510054049258}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: NotInLight
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  targetCollider: {fileID: 5536086860369742268}
-  ignoreLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  numberOfRays: 8
 --- !u!1 &5667003244629044161
 GameObject:
   m_ObjectHideFlags: 0

@@ -221,7 +221,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3255678221931975665}
   - component: {fileID: 5005379177990678229}
-  - component: {fileID: 6937067127166229166}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -299,73 +298,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6937067127166229166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2896827589946848167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8af444a2acf4ec54eb79db438026799a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  redLightTransform: {fileID: 0}
-  inRedLight:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3884917623105875228}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: NotInLight
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  greenLightTransform: {fileID: 0}
-  inGreenLight:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3884917623105875228}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: NotInLight
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  inYellowLight:
-    m_PersistentCalls:
-      m_Calls: []
-  notInLight:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3884917623105875228}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: InLight
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  targetCollider: {fileID: 8461282370201154380}
-  ignoreLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  numberOfRays: 8
 --- !u!1 &3576124894911075349
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,25 +431,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8af444a2acf4ec54eb79db438026799a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  redLightTransform: {fileID: 0}
-  inRedLight:
-    m_PersistentCalls:
-      m_Calls: []
-  greenLightTransform: {fileID: 0}
-  inGreenLight:
-    m_PersistentCalls:
-      m_Calls: []
-  inYellowLight:
-    m_PersistentCalls:
-      m_Calls: []
   notInLight:
     m_PersistentCalls:
       m_Calls: []
-  targetCollider: {fileID: 0}
+  targetCollider: {fileID: 8461282370201154380}
   ignoreLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   numberOfRays: 8
+  lightPairs: []
 --- !u!114 &3884917623105875228
 MonoBehaviour:
   m_ObjectHideFlags: 0
