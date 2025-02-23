@@ -12,6 +12,7 @@ TagManager:
   - YELLOW
   - WALL
   - GREEN
+  - Exit
   layers:
   - Default
   - TransparentFX

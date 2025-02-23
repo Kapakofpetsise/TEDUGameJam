@@ -6,7 +6,8 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private Transform grabPoint;
     [SerializeField] private float grabRange = 1f;
     [SerializeField] private LayerMask grabLayer;
-
+    [SerializeField] private AudioClip exitSound; // Assign in Inspector
+    private AudioSource audioSource;
 
     private Vector2 _movement;
     private Rigidbody2D _rb;
@@ -18,6 +19,11 @@ public class PlayerMovement : MonoBehaviour {
     private void Awake() {
         _rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<Collider2D>();
+        audioSource = GetComponent<AudioSource>(); // Get or add AudioSource
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     private void Update() {
@@ -82,16 +88,32 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
+        
+
         if ((grabLayer.value & (1 << other.gameObject.layer)) > 0) {
             detectedObject = other;
-            Debug.Log("Detected object: " + other.gameObject.name);
+           
+        }
+
+        if (other.CompareTag("Exit")) // Ensure the exit object has the correct tag
+        {
+            Debug.Log("Player reached exit! Calling PlayExitSound()");
+            PlayExitSound();
         }
     }
 
     private void OnTriggerExit2D(Collider2D other) {
         if (other == detectedObject) {
             detectedObject = null;
-            Debug.Log("Lost detection of object: " + other.gameObject.name);
+           
+        }
+    }
+
+    private void PlayExitSound()
+    {
+        if (exitSound != null)
+        {
+            audioSource.PlayOneShot(exitSound);
         }
     }
 
