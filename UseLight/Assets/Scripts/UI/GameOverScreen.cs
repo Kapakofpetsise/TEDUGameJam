@@ -18,7 +18,6 @@ public class GameOverScreen : MonoBehaviour
 
     public void GameOver() {
         gameOverScreen.SetActive(true);
-        Time.timeScale = 0;
     }
 
     public void Restart() {

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour {
     public float fadeDuration = 0.5f; // Time to fully fade out
@@ -78,5 +79,6 @@ public class Player : MonoBehaviour {
         
         // Add your player death logic here (e.g., reload level, disable player, etc.)
         gameObject.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
