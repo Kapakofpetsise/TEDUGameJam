@@ -14,31 +14,95 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float velocity;
     [SerializeField] protected float lightExposureTime;
     protected float currentExposureTime = 0f;
-    protected bool isExposedToLight = false;
-    protected Coroutine stunCoroutine;
 
-    [Header("Events")]
-    [Space]
-    [SerializeField] protected UnityEvent OnDeathEvent;
+   public float fadeDuration = 1f; // Time to fully fade out
+    public float fadeSpeed = 10f;
+    [SerializeField] SpriteRenderer spriteRenderer;
+    private Coroutine fadeCoroutine;
+    private bool isFadingOut = false;
+    private float fadeTimer = 0f;
+
 
     protected virtual void Start() {
-        if (OnDeathEvent == null) {
-            OnDeathEvent = new UnityEvent();
-        }
         rb2d = GetComponent<Rigidbody2D>();
         destinationPoint = patrolPoints[1].transform;
     }
 
-    public virtual void Die() {
-        OnDeathEvent.Invoke();
+
+    public void Dying()
+    {
+        Debug.Log("In Light");
+        if (!isFadingOut)
+        {
+            if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);
+            fadeCoroutine = StartCoroutine(FadeOut());
+        }
     }
+
+    public void Reviving()
+    {
+        Debug.Log("Not In Light");
+        if (isFadingOut)
+        {
+            if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);
+            fadeCoroutine = StartCoroutine(FadeIn());
+        }
+    }
+
+    private IEnumerator FadeOut()
+    {
+        isFadingOut = true;
+        fadeTimer = 0f;
+
+        while (fadeTimer < fadeDuration)
+        {
+            fadeTimer += Time.deltaTime;
+            float alpha = Mathf.Lerp(1f, 0f, fadeTimer / fadeDuration);
+            SetAlpha(alpha);
+
+            if (!isFadingOut) yield break; // If reversed, stop fading out
+            yield return null;
+        }
+
+        Die();
+    }
+
+    private IEnumerator FadeIn()
+    {
+        isFadingOut = false;
+        fadeTimer = Mathf.Clamp(fadeTimer, 0f, fadeDuration); // Prevent overfading
+
+        while (fadeTimer > 0)
+        {
+            fadeTimer -= Time.deltaTime * fadeSpeed;
+            float alpha = Mathf.Lerp(0f, 1f, 1 - (fadeTimer / fadeDuration));
+            SetAlpha(alpha);
+
+            yield return null;
+        }
+    }
+
+    private void SetAlpha(float alpha)
+    {
+        Color color = spriteRenderer.color;
+        color.a = alpha;
+        spriteRenderer.color = color;
+    }
+
+    public void Die()
+    {
+        Debug.Log("Player Died");
+        // Add your player death logic here (e.g., reload level, disable player, etc.)
+        gameObject.SetActive(false);
+    }
+
 
     protected virtual void FixedUpdate() {
         Patrol();
     }
 
     protected virtual void Patrol() {
-        if (!isExposedToLight) {
+        if (!isFadingOut) {
             if (destinationPoint == patrolPoints[0].transform) {
                 if (gameObject.CompareTag("EnemyA")) {
                     rb2d.linearVelocity = new Vector2(velocity, rb2d.linearVelocity.y);
@@ -72,40 +136,6 @@ public class Enemy : MonoBehaviour
         transform.localScale = localScale;
     }
 
-    public void OnDie() {
-        if (collider != null) {
-            rb2d.bodyType = RigidbodyType2D.Static;
-            collider.enabled = false;
-            animator.SetTrigger("die");
-            Destroy(gameObject, deathAnimationTime);
-        }
-    }
-
-    public void ExposeToLight(bool exposed) {
-        if (exposed) {
-            if (!isExposedToLight) {
-                isExposedToLight = true;
-                rb2d.gravityScale = 0; // allows not to stuck enemies moving up and down (the enemy having EnemyB tag in this case) 
-                stunCoroutine = StartCoroutine(StunAndDieCoroutine());
-            }
-        } else {
-            isExposedToLight = false;
-            StopCoroutine(stunCoroutine);
-            currentExposureTime = 0f;
-        }
-    }
-
-    private IEnumerator StunAndDieCoroutine() {
-        rb2d.linearVelocity = Vector2.zero;
-        while (currentExposureTime < lightExposureTime) {
-            if (!isExposedToLight) {
-                yield break;
-            }
-            currentExposureTime += Time.deltaTime;
-            yield return null;
-        }
-        Die();
-    }
 
     protected virtual void OnDrawGizmos() {
         for (int i = 0; i < patrolPoints.Length; i++) {

@@ -1,14 +1,22 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class LightDetection : MonoBehaviour
 {
-    public Transform redLightTransform;  
-    public UnityEvent inRedLight;  
 
-    public Transform greenLightTransform;  
-    public UnityEvent inGreenLight;  
-    public UnityEvent inYellowLight;  // green and red light
+    [System.Serializable]
+    public struct TransformEventPair
+    {
+        public Transform lightTransform;
+        public UnityEvent inLight;
+
+        public TransformEventPair(Transform transform)
+        {
+            this.lightTransform = transform;
+            this.inLight = new UnityEvent();
+        }
+    }
     public UnityEvent notInLight;  
     
     public CircleCollider2D targetCollider;  // The target object with a CircleCollider2D
@@ -17,25 +25,22 @@ public class LightDetection : MonoBehaviour
 
     public int numberOfRays = 8;  // Number of rays to cast around the circle's perimeter
 
-    bool isInRedLight = false;
-    bool isInGreenLight = false;
+    public List<TransformEventPair> lightPairs = new List<TransformEventPair>();
 
+    bool isLighted = false;
 
-    
     void Update()
     {
-        isInGreenLight = IsInLight(greenLightTransform);
-        isInRedLight = IsInLight(redLightTransform);
-
-        if(isInRedLight && isInGreenLight){
-            inYellowLight?.Invoke();
-        }else if(isInRedLight){
-            inRedLight?.Invoke();
-        }else if(isInGreenLight){
-            inGreenLight?.Invoke();
-        }else{
-            notInLight?.Invoke();
+        isLighted = false;
+        foreach (TransformEventPair pair in lightPairs)
+        {
+            if (IsInLight(pair.lightTransform))
+            {
+                pair.inLight?.Invoke(); // Invoke the event if assigned
+                isLighted = true;
+            }
         }
+        if(!isLighted){notInLight?.Invoke();}
     }
 
     bool IsInLight(Transform point){

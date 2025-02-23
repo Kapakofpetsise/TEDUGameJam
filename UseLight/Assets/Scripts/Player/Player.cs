@@ -2,8 +2,8 @@ using UnityEngine;
 using System.Collections;
 public class Player : MonoBehaviour
 {
-    public float fadeDuration = 3f; // Time to fully fade out
-    public float fadeSpeed = 1f;
+    public float fadeDuration = 0.5f; // Time to fully fade out
+    public float fadeSpeed = 10f;
     [SerializeField] SpriteRenderer spriteRenderer;
     private Coroutine fadeCoroutine;
     private bool isFadingOut = false;
@@ -14,9 +14,9 @@ public class Player : MonoBehaviour
 
     }
 
-    public void InLight()
+    public void Dying()
     {
-        Debug.Log("Not In Light");
+        Debug.Log("In Light");
         if (!isFadingOut)
         {
             if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);
@@ -24,9 +24,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void NotInLight()
+    public void Reviving()
     {
-        Debug.Log("In Light");
+        Debug.Log("Not In Light");
         if (isFadingOut)
         {
             if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);
@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
         spriteRenderer.color = color;
     }
 
-    private void Die()
+    public void Die()
     {
         Debug.Log("Player Died");
         // Add your player death logic here (e.g., reload level, disable player, etc.)

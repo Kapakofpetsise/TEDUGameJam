@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b1235427b9201bb4a80ac22faa82a38d
+guid: 932631c0e0b59e24b8ba4b222404666c
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -98,7 +98,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638758534370141006
+  platformSettingsDirtyTick: 638759025616900584
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -123,19 +123,19 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: SmallBox
+  - name: Enemy
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 16
-      height: 16
-    spriteID: 1f1377e9284cfca4b9c4a25a15927416
+      width: 32
+      height: 32
+    spriteID: 3b855e45a9c096043928219d42e02083
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -147,21 +147,21 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -5395862
-    name: SmallBox
+    guid: 1816890106
+    name: Enemy
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: SmallBox
+    - name: Enemy
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
         x: 0
         y: 0
-        width: 16
-        height: 16
-      spriteId: 1f1377e9284cfca4b9c4a25a15927416
+        width: 32
+        height: 32
+      spriteId: 3b855e45a9c096043928219d42e02083
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -216,5 +216,5 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 16, y: 16}
-  previousTextureSize: {x: 32, y: 32}
+  canvasSize: {x: 32, y: 32}
+  previousTextureSize: {x: 64, y: 64}
